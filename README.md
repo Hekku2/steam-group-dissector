@@ -1,2 +1,4 @@
 # steam-group-dissector
-Tool for lan parties to see common games for a steam group
+Tool for lan parties to see common games for a steam group.
+
+##NOT USABLE YET.
