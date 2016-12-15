@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { ListGroupItem } from 'react-bootstrap';
+
 
 class User extends Component {
     constructor(props) {
@@ -7,7 +9,7 @@ class User extends Component {
 
     render() {
         return (
-            <li>{this.props.user.id}</li>
+            <ListGroupItem>{this.props.user.id}</ListGroupItem>
         );
     }
 }

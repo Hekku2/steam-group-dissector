@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Panel } from 'react-bootstrap';
 import UserList from '../UserList/UserList';
 import userStore from '../../stores/UserStore'
 
@@ -27,10 +28,9 @@ class Group extends Component {
 
     render() {
         return (
-            <div >
-                <p>{this.state.users.length}</p>
+            <Panel header="Users" collapsible>
                 <UserList users={this.state.users}/>
-            </div>
+            </Panel>
         );
     }
 }

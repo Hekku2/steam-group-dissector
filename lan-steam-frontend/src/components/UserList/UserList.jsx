@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { ListGroup } from 'react-bootstrap';
 import User from '../User/User';
 
 class UserList extends Component {
@@ -8,9 +9,9 @@ class UserList extends Component {
 
     render() {
         return (
-            <ul>
+            <ListGroup>
                 {this.props.users.map(user => <User key={user.id} user={user}/>)}
-            </ul>
+            </ListGroup>
         );
     }
 }
