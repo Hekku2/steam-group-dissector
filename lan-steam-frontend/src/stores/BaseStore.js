@@ -81,8 +81,10 @@ export default class Store {
      */
     onStoreChange() {
         for (let viewID in this.registeredViews) {
-            this.logger.debug(`Sending Store Change Event to View Registration ${viewID}`);
-            this.registeredViews[viewID]();
+            if (this.registeredViews.hasOwnProperty(viewID)) {
+                this.logger.debug(`Sending Store Change Event to View Registration ${viewID}`);
+                this.registeredViews[viewID]();
+            }
         }
     }
 
