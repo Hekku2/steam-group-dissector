@@ -12,7 +12,8 @@ class UserStore extends Store{
         return this._users;
     }
 
-    addUsers(items){
+    setUsers(items){
+        this._users = [];
         this._users.push(...items);
         this.changeStore();
     }
