@@ -63,7 +63,7 @@ export default class Store {
             delete this.registeredViews[id];
         } else {
             if (!force) {
-                throw 'Invalid View Registration ID';
+                throw new Error('Invalid View Registration ID');
             }
         }
     }
@@ -81,7 +81,7 @@ export default class Store {
      */
     onStoreChange() {
         for (let viewID in this.registeredViews) {
-            this.logger.debug('Sending Store Change Event to View Registration ${viewID}');
+            this.logger.debug(`Sending Store Change Event to View Registration ${viewID}`);
             this.registeredViews[viewID]();
         }
     }
