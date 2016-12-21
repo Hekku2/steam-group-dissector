@@ -5,3 +5,7 @@ Tool for lan parties to see common games for a steam group.
 
 ## Backend
 Copy default_template.json to correct template (todo proper instructions)
+
+##
+Steam api key is required
+

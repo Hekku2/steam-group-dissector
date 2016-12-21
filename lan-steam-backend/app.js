@@ -1,6 +1,8 @@
 var steamGroup = require('steam-group');
+var SteamApi = require('steam-api');
 var express = require('express');
 var config = require('config');
+var Q = require('q');
 var app = express();
 
 app.use(function(req, res, next) {
@@ -14,8 +16,32 @@ app.use(function(req, res, next) {
 app.get('/group/:groupName', function (req, res) {
     var group = steamGroup.fromName(req.params.groupName);
     group.getMembers(handleResult);
-    function handleResult(a,result,c){
-        res.send(result);
+    function handleResult(a,result,c){;
+        Q.allSettled(result.map(function (playerId){
+            var player = new SteamApi.Player(config.get('steam-api-key'), playerId);
+            return player.GetOwnedGames().then(function(games){
+                return {
+                    playerId: playerId,
+                    games: games
+                };
+            });
+        })).then(function (results) {
+            var cleaned = results.map(function(promise, index){
+                if (promise.state === 'fulfilled'){
+                    return {
+                        playerId: promise.value.playerId,
+                        code: 200,
+                        games: promise.value.games
+                    };
+                } else {
+                    return {
+                        playerId: result[index],
+                        code: promise.reason.statusCode
+                    };
+                }
+            });
+            res.send(cleaned);
+        });
     }
 });
 
