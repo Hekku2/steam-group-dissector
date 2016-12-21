@@ -111,7 +111,7 @@ export default class Store {
                 this.changeStore();
             }
         } else {
-            throw `Unknown key ${key} in store`;
+            throw new Error(`Unknown key ${key} in store`);
         }
     }
 
@@ -126,7 +126,7 @@ export default class Store {
         if (key in this.storeData) {
             return this.storeData[key];
         } else {
-            throw `Unknown key ${key} in store`;
+            throw new Error(`Unknown key ${key} in store`);
         }
     }
 
