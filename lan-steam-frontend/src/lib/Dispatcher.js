@@ -41,8 +41,10 @@ export default class Dispatcher {
         // When an action comes in, it must be completely handled by all stores
         this.logger.debug(`Dispatching Action: ${actionType}: `, data);
         for (let storeName in this.stores) {
-            this.logger.debug(`Dispatching Action: ${actionType} to store ${storeName}`);
-            this.stores[storeName].onAction(actionType, data);
+            if (this.stores.hasOwnProperty(storeName)) {
+                this.logger.debug(`Dispatching Action: ${actionType} to store ${storeName}`);
+                this.stores[storeName].onAction(actionType, data);
+            }
         }
     }
 
@@ -57,7 +59,7 @@ export default class Dispatcher {
         let name = store.name;
         if (name in this.stores) {
             this.logger.error(`Store ${name} is already registered`);
-            throw 'Store Already Exists';
+            throw new Error('Store Already Exists');
         }
         this.stores[name] = store;
         this.logger.debug(`Store ${name} registered`);
@@ -76,7 +78,7 @@ export default class Dispatcher {
         } else {
             this.logger.error(`Store ${name} is not registered (cannot deregister)`);
             if (!force) {
-                throw 'Store is not registered';
+                throw new Error('Store is not registered');
             }
         }
     }
@@ -92,7 +94,7 @@ export default class Dispatcher {
         if (name in this.stores) {
             return this.stores[name];
         } else {
-            throw 'Invalid Store';
+            throw new Error('Invalid Store');
         }
     }
 }
