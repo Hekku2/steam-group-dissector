@@ -3,10 +3,6 @@ import { ListGroup } from 'react-bootstrap';
 import User from '../User/User';
 
 class UserList extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <ListGroup>

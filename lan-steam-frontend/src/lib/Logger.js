@@ -1,7 +1,4 @@
 class Logger {
-    constructor(component) {
-    }
-
     debug(message){
         console.log(message);
     }
