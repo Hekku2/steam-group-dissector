@@ -1,4 +1,0 @@
-{
-  "port": 1337,
-  "cross-domain-header": "http://localhost:3000"
-}

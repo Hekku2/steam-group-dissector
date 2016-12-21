@@ -1,0 +1,5 @@
+{
+  "port": 1337,
+  "cross-domain-header": "http://localhost:3000",
+  "steam-api-key": "API_KEY_HERE"
+}
