@@ -31,6 +31,7 @@ class Games extends Component {
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Owners</th>
                     </tr>
                 </thead>
                 <tbody>

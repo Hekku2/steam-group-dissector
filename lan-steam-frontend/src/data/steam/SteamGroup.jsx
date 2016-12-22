@@ -9,12 +9,20 @@ class SteamGroup {
     }
 
     _handleGames(content){
+        function gameEquals(a, b){
+            return a.appId === b.appId;
+        }
+
         function onlyUnique(value, index, self) {
-            return self.findIndex(function(item){return item.appId === value.appId}) === index;
+            return self.findIndex(item => {return gameEquals(item, value)}) === index;
         }
 
         function flatten(a, b){
             return a.concat(b);
+        }
+
+        function hasGame(user, app){
+            return user.games.some(userGame => {return gameEquals(userGame, app)});
         }
 
         var uniqueGames = content.map(playerData => {
@@ -22,7 +30,15 @@ class SteamGroup {
                 return {
                     appId: gameData.appId,
                     name: gameData.name,
-                    logo: gameData.logo
+                    logo: gameData.logo,
+                    owners: content.filter(item => {return hasGame(item, gameData);})
+                            .map(item => {
+                                console.log(item);
+                                return {
+                                playerId: item.playerId,
+                                name: item.user.personaName,
+                                picture: item.user.avatar
+                            } })
                 }
             });
         }).reduce(flatten).filter(onlyUnique);
@@ -32,7 +48,9 @@ class SteamGroup {
     _handleUsers(content){
         var users = content.map(playerData => {
             return {
-                id: playerData.playerId
+                id: playerData.playerId,
+                name:  playerData.user.personaName,
+                picture: playerData.user.avatar
             };
         });
         userStore.setUsers(users);

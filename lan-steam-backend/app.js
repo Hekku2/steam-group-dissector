@@ -19,10 +19,12 @@ app.get('/group/:groupName', function (req, res) {
     function handleResult(a,result,c){
         Q.allSettled(result.map(function (playerId){
             var player = new SteamApi.Player(config.get('steam-api-key'), playerId);
-            return player.GetOwnedGames().then(function(games){
+            var user = new SteamApi.User(config.get('steam-api-key'), playerId);
+            return Q.allSettled([player.GetOwnedGames(), user.GetPlayerSummaries()]).spread(function (games, user){
                 return {
                     playerId: playerId,
-                    games: games
+                    games: games.value,
+                    user: user.value
                 };
             });
         })).then(function (results) {
@@ -31,7 +33,8 @@ app.get('/group/:groupName', function (req, res) {
                     return {
                         playerId: promise.value.playerId,
                         code: 200,
-                        games: promise.value.games
+                        games: promise.value.games,
+                        user: promise.value.user
                     };
                 } else {
                     return {
