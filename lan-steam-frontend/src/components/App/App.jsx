@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Jumbotron} from 'react-bootstrap';
 import Group from '../Group/Group'
 import GroupChooser from '../GroupChooser/GroupChooser'
+import Games from '../Games/Games';
 
 class App extends Component {
     constructor() {
@@ -26,6 +27,7 @@ class App extends Component {
                 </Jumbotron>
                 <GroupChooser groupChanged={this.groupChanged} groupName={this.state.group}/>
                 <Group groupName={this.state.group} />
+                <Games />
             </div>
         );
     }

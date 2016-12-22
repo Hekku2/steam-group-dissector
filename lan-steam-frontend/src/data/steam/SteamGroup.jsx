@@ -10,7 +10,7 @@ class SteamGroup {
 
     _handleGames(content){
         function onlyUnique(value, index, self) {
-            return self.indexOf(value) === index;
+            return self.findIndex(function(item){return item.appId === value.appId}) === index;
         }
 
         function flatten(a, b){
@@ -19,7 +19,11 @@ class SteamGroup {
 
         var uniqueGames = content.map(playerData => {
             return playerData.games.map(gameData => {
-                return gameData.appId
+                return {
+                    appId: gameData.appId,
+                    name: gameData.name,
+                    logo: gameData.logo
+                }
             });
         }).reduce(flatten).filter(onlyUnique);
         gameStore.setGames(uniqueGames);
