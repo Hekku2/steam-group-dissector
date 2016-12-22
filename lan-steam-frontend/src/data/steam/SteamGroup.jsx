@@ -25,6 +25,10 @@ class SteamGroup {
             return user.games.some(userGame => {return gameEquals(userGame, app)});
         }
 
+        function sort(a, b){
+            return a.owners.length - b.owners.length;
+        }
+
         var uniqueGames = content.map(playerData => {
             return playerData.games.map(gameData => {
                 return {
@@ -34,13 +38,14 @@ class SteamGroup {
                     owners: content.filter(item => {return hasGame(item, gameData);})
                             .map(item => {
                                 return {
-                                playerId: item.playerId,
-                                name: item.user.personaName,
-                                picture: item.user.avatar
-                            } })
+                                    playerId: item.playerId,
+                                    name: item.user.personaName,
+                                    picture: item.user.avatar
+                                }
+                            })
                 }
             });
-        }).reduce(flatten).filter(onlyUnique).sort((a, b) => {return a.owners.length - b.owners.length;});
+        }).reduce(flatten).filter(onlyUnique).sort(sort);
         gameStore.setGames(uniqueGames);
     }
 
