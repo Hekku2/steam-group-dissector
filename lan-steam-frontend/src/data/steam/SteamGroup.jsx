@@ -33,7 +33,6 @@ class SteamGroup {
                     logo: gameData.logo,
                     owners: content.filter(item => {return hasGame(item, gameData);})
                             .map(item => {
-                                console.log(item);
                                 return {
                                 playerId: item.playerId,
                                 name: item.user.personaName,
@@ -41,7 +40,7 @@ class SteamGroup {
                             } })
                 }
             });
-        }).reduce(flatten).filter(onlyUnique);
+        }).reduce(flatten).filter(onlyUnique).sort((a, b) => {return a.owners.length - b.owners.length;});
         gameStore.setGames(uniqueGames);
     }
 
