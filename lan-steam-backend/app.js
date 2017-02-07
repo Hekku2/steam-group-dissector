@@ -20,7 +20,8 @@ app.get('/group/:groupName', function (req, res) {
         Q.allSettled(result.map(function (playerId){
             var player = new SteamApi.Player(config.get('steam-api-key'), playerId);
             var user = new SteamApi.User(config.get('steam-api-key'), playerId);
-            return Q.allSettled([player.GetOwnedGames(), user.GetPlayerSummaries()]).spread(function (games, user){
+            return Q.allSettled([player.GetOwnedGames(), user.GetPlayerSummaries()])
+                    .spread(function (games, user){
                 return {
                     playerId: playerId,
                     games: games.value,

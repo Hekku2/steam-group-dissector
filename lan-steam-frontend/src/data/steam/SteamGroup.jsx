@@ -26,7 +26,19 @@ class SteamGroup {
         }
 
         function sort(a, b){
-            return a.owners.length - b.owners.length;
+            return b.owners.length - a.owners.length;
+        }
+
+        function getOwners(users, game){
+            return users
+                .filter(item => {return hasGame(item, game);})
+                .map(item => {
+                    return {
+                        playerId: item.playerId,
+                        name: item.user.personaName,
+                        picture: item.user.avatar
+                    }
+                });
         }
 
         var uniqueGames = content.map(playerData => {
@@ -35,14 +47,7 @@ class SteamGroup {
                     appId: gameData.appId,
                     name: gameData.name,
                     logo: gameData.logo,
-                    owners: content.filter(item => {return hasGame(item, gameData);})
-                            .map(item => {
-                                return {
-                                    playerId: item.playerId,
-                                    name: item.user.personaName,
-                                    picture: item.user.avatar
-                                }
-                            })
+                    owners: getOwners(content, gameData)
                 }
             });
         }).reduce(flatten).filter(onlyUnique).sort(sort);
