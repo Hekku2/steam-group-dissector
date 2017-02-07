@@ -22,9 +22,6 @@ it('renders correct images for users', () => {
             );
         }
     });
-
-    const tbody = document.createElement('tbody');
-
     var game = {
         owners: [
             {
