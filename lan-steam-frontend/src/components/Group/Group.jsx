@@ -11,6 +11,7 @@ class Group extends Component {
         }
     }
 
+
     componentWillMount() {
         this.storeId = userStore.registerView(() => { this.updateState(); });
         this.updateState();
@@ -27,8 +28,12 @@ class Group extends Component {
     }
 
     render() {
+        const title = (
+            <h4 style={{cursor: 'pointer'}}>Users</h4>
+        );
+
         return (
-            <Panel header="Users" collapsible>
+            <Panel header={title} collapsible>
                 <UserList users={this.state.users}/>
             </Panel>
         );
