@@ -7,7 +7,7 @@ class User extends Component {
             <ListGroupItem>
                 <h3>
                     <img src={this.props.user.picture} alt={this.props.user.name} />
-                    <span> {this.props.user.name} </span>
+                    <span>{this.props.user.name}</span>
                 </h3>
             </ListGroupItem>
         );
