@@ -19,7 +19,11 @@ Config parameters
 cd lan-steam-backend
 npm install
 ```
-After install replace configuration values in `config/env.js`. This will probably change in future.
+
+Set BACKEND env-variable to backend url & port. Default value is 'http://localhost:1337'
+
+Config parameters
+* **`defaultGroup`** Default input offered to 'Group name'-input
 
 # Usage
 ## Backend

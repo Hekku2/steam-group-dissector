@@ -3,13 +3,14 @@ import {Jumbotron} from 'react-bootstrap';
 import Group from '../Group/Group'
 import GroupChooser from '../GroupChooser/GroupChooser'
 import Games from '../Games/Games';
+import Config from 'Config';
 
 class App extends Component {
     constructor() {
         super();
         this.groupChanged = this.groupChanged.bind(this);
         this.state = {
-            group: "kokkeli",
+            group: Config.defaultGroup,
         };
     }
 

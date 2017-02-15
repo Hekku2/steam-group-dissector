@@ -37,3 +37,4 @@ jspm_packages
 .node_repl_history
 /.idea
 /lan-steam-backend/config/default.json
+/lan-steam-frontend/config/config.json

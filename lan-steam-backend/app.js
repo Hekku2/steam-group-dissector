@@ -16,10 +16,12 @@ app.use(function(req, res, next) {
 app.get('/group/:groupName', function (req, res) {
     var group = steamGroup.fromName(req.params.groupName);
     group.getMembers(handleResult);
-    function handleResult(a,result,c){
+
+    function handleResult(a, result, c){
         Q.allSettled(result.map(function (playerId){
-            var player = new SteamApi.Player(config.get('steam-api-key'), playerId);
-            var user = new SteamApi.User(config.get('steam-api-key'), playerId);
+            var apikey = config.get('steam-api-key');
+            var player = new SteamApi.Player(apikey, playerId);
+            var user = new SteamApi.User(apikey, playerId);
             return Q.allSettled([player.GetOwnedGames(), user.GetPlayerSummaries()])
                     .spread(function (games, user){
                 return {
